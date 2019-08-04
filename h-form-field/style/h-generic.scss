@@ -1,0 +1,29 @@
+@import '../../../../../assets/theme/light/variable';
+
+//HOST
+$host-minwidth: 200px;
+$host-maxwidth: auto;
+
+//INPUT-BOX
+$input-box-height: 32px;
+$input-box-padding: 0px 12px;
+$icon-size: 18px;
+$input-icon-padding: 0 12px;
+
+/////////////////////////////////////////
+/////////////////////////////////////////
+
+:host(.h-generic) {
+	min-width: $host-minwidth;
+	max-width: $host-maxwidth;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: repeat(3, min-content);
+	align-items: center;
+}
+
+:host(.h-generic) .input-box {
+	width: 100%;
+	border: 1px solid transparent;
+	background-color: transparent;
+}

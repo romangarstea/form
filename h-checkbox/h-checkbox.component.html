@@ -1,0 +1,8 @@
+<label class="unselectable">
+	<input #checkbox (change)="valueChange()" type="checkbox" [indeterminate]="indeterminate" [tabindex]="tabindex" autocomplete="off" [disabled]="disabled">
+	<div class="checkbox"></div>
+	<div class="indicator"></div>
+	<div class="indicator-indeterminate"></div>
+	<div #label class="label"><ng-content></ng-content></div>
+</label>
+

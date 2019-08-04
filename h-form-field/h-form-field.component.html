@@ -1,0 +1,58 @@
+<!------------------------------------------>
+<div>
+	<ng-content select="[label]"></ng-content>
+</div>
+
+
+<!------------------------------------------>
+<div class="input-box">
+
+	<!--Text input-->
+	<ng-container *ngIf="isTextInput">
+		<ng-content select="[leftIcon]"></ng-content>
+		<ng-content select="input[hTextInput]"></ng-content>
+		<ng-content select="input[hPasswordInput]"></ng-content>
+		<ng-content select="[rightIconDone]"></ng-content>
+		<ng-content select="[rightIconSpin]"></ng-content>
+		<ng-content select="[rightIconError]"></ng-content>
+		<ng-content select="[rightIcon]"></ng-content>
+	</ng-container>
+
+	<!--Textarea-->
+	<ng-container *ngIf="isTextarea">
+		<ng-content select="textarea[hTextarea]"></ng-content>
+	</ng-container>
+
+	<!--Amount input-->
+	<ng-container *ngIf="isAmountInput">
+		<ng-content select="[amountLeftIcon]"></ng-content>
+		<ng-content select="input[hAmountInput]"></ng-content>
+		<ng-content select="[amountRightIcon]"></ng-content>
+	</ng-container>
+
+	<!--Number input-->
+	<ng-container *ngIf="isNumberInput">
+		<div decrement (mousedown)="mousedownDecrement()" (mouseup)="mouseupDecrement()" class="material-icons">remove</div>
+		<ng-content select="input[hNumberInput]"></ng-content>
+		<div increment (mousedown)="mousedownIncrement()" (mouseup)="mouseupIncrement()" class="material-icons">add</div>
+	</ng-container>
+
+	<!--Generic-->
+	<ng-container *ngIf="isGeneric">
+		<ng-content select="[hGeneric]"></ng-content>
+	</ng-container>
+
+</div>
+
+<!------------------------------------------>
+<div class="hint-box">
+	<ng-content select="[hint]"></ng-content>
+	<div count><div *ngIf="showCounter">{{count}}/{{maxLength}}</div></div>
+	<div *ngIf="hasError">
+		<ng-content select="[error]"></ng-content>
+	</div>
+</div>
+
+
+
+

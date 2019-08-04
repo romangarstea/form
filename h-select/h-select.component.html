@@ -1,0 +1,30 @@
+<!------------------------------------------>
+<div #label>
+	<ng-content select="[label]"></ng-content>
+</div>
+
+<!------------------------------------------>
+<div #inputBox class="input-box">
+	<input #input type="text" [placeholder]="placeholder" [readonly]="readonly">
+
+	<div class="icon-box">
+		<div *ngIf="showCancelIcon" #iconCancel class="material-icons cancel">cancel</div>
+		<div *ngIf="showSearchIcon" class="material-icons search">search</div>
+		<div *ngIf="showTriangleIcon" class="icon-triangle"></div>
+	</div>
+</div>
+
+<!------------------------------------------>
+<div class="bottom-container">
+	<div #dropdownBox class="dropdownBox">
+		<ng-content select="h-select-option"></ng-content>
+	</div>
+
+	<div #hint class="hint-box">
+		<ng-content select="[hint]"></ng-content>
+		<div count></div>
+		<ng-content select="[error]"></ng-content>
+	</div>
+</div>
+
+

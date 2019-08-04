@@ -1,0 +1,13 @@
+
+<div class="container">
+	<div class="toggleswitch"
+		 [tabindex]="tabindex"
+		 (keydown.enter)="checked = !checked"
+	>
+		<div class="indicator"></div>
+	</div>
+	<div class="label">
+		<ng-content></ng-content>
+	</div>
+</div>
+

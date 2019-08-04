@@ -1,0 +1,184 @@
+@import '../../../../../assets/theme/light/variable';
+
+//HOST
+$host-minwidth: 200px;
+$host-maxwidth: 378px;
+
+//INPUT-BOX
+$input-box-height: 32px;
+$input-box-padding: 0px 12px;
+$icon-size: 18px;
+$input-icon-padding: 0 12px;
+
+//INPUT
+$input-height: $input-box-height - 4;
+@mixin input-text {
+	@include body1();
+	color: $color-theme-700;
+}
+
+//-------------------
+
+//DEFAULT
+$input-border-color: $color-theme-300;
+$input--icon-left-color: $color-theme-400;
+$input--icon-right-done-color: $theme-success;
+
+//HOVER
+$input-border-color-hover: $color-theme-500;
+$input--icon-left-color-hover: $color-theme-500;
+
+//FOCUS
+$input-box--border-color-focus: $color-accent-700;
+$input--icon-left-color-focus: $color-accent-700;
+
+//ERROR
+$input--icon-left-color-error: $color-error-banner;
+$input-box-border-color-error: $color-error-banner;
+$error-color: $color-error-banner;
+
+//DISABLED
+$input-box-border-color-disabled: $color-theme-200;
+$input-box-background-color-disabled: $color-theme-200;
+$input-box-input-text-color-disabled: $color-theme-500;
+$input-box-input-placeholder-color-disabled: $color-theme-500;
+$input-box-icon-color-disabled: $color-theme-200;
+
+
+/////////////////////////////////////////
+/////////////////////////////////////////
+
+:host(.h-text-input) {
+	min-width: $host-minwidth;
+	max-width: $host-maxwidth;
+	display: grid;
+	grid-template-columns: auto;
+	grid-template-rows: repeat(3, min-content);
+	align-items: center;
+}
+
+:host(.h-text-input) .input-box {
+	width: 100%;
+	height: $input-box-height;
+	display: grid;
+	grid-template-columns: min-content auto min-content;
+	align-items: center;
+
+	border: 1px solid $input-border-color;
+	border-radius: $border-radius;
+	background-color: white;
+	padding: 0 1px;
+
+	::ng-deep input[type=text], ::ng-deep input[type=password] {
+		width: 100%;
+
+		grid-column-start: 2;
+		grid-column-end: 3;
+		height: $input-height;
+
+		@include input-text();
+
+		outline: none;
+		border: none;
+		padding: $input-box-padding;
+	}
+
+	::ng-deep .material-icons {
+		font-size: $icon-size;
+		color: $color-theme-700 !important;
+	}
+
+	::ng-deep [leftIcon] {
+		padding: $input-icon-padding;
+		color: $input--icon-left-color !important;
+	}
+
+	::ng-deep [rightIcon] {
+		padding: $input-icon-padding;
+		color: $input--icon-left-color !important;
+	}
+
+	::ng-deep [rightIconDone] {
+		padding: $input-icon-padding;
+		color: $input--icon-right-done-color !important;
+	}
+
+	::ng-deep [rightIconError] {
+		padding: $input-icon-padding;
+		color: $error-color !important;
+	}
+
+	::ng-deep [rightIconSpin] {
+		padding: $input-icon-padding;
+		.material-icons{
+			display: flex;
+			align-items: center;
+			animation: spin 1s linear infinite;
+			transform-origin: 50% 50%;
+			color: $input--icon-left-color-hover !important;;
+		}
+	}
+
+	@keyframes spin {
+		0% { transform:rotate(0deg) }
+		100% { transform:rotate(-359deg) }
+	}
+}
+
+
+//// HOVER
+/////////////////////////////////////////
+:host(.h-text-input):hover .input-box {
+	border: 1px solid $input-border-color-hover;
+}
+
+:host(.h-text-input):hover .input-box ::ng-deep [leftIcon],
+:host(.h-text-input):hover .input-box ::ng-deep [rightIcon] {
+	color: $input--icon-left-color-hover !important;;
+}
+
+//// FOCUS
+/////////////////////////////////////////
+:host(.h-text-input.focus) .input-box {
+	border: 1px solid $input-box--border-color-focus;
+}
+
+:host(.h-text-input.focus) .input-box ::ng-deep [leftIcon],
+:host(.h-text-input.focus) .input-box ::ng-deep [rightIcon]  {
+	color: $input--icon-left-color-focus !important;;
+}
+
+//// ERROR
+/////////////////////////////////////////
+:host(.h-text-input.error) .input-box {
+	border: 1px solid $input-box-border-color-error;
+}
+
+:host(.h-text-input.error) .input-box ::ng-deep [leftIcon],
+:host(.h-text-input.error) .input-box ::ng-deep [rightIcon] {
+	color: $input--icon-left-color-error !important;
+}
+
+//// DISABLED
+/////////////////////////////////////////
+:host(.h-text-input.disabled) .input-box {
+	border: 1px solid $input-box-border-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-text-input.disabled) .input-box ::ng-deep input[type=text]:disabled,
+:host(.h-text-input.disabled) .input-box ::ng-deep input[type=password]:disabled{
+	color: $input-box-input-text-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-text-input.disabled) .input-box ::ng-deep input[type=text]:disabled::placeholder,
+:host(.h-text-input.disabled) .input-box ::ng-deep input[type=password]:disabled::placeholder{
+	color: $input-box-input-placeholder-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-text-input.disabled) .input-box .material-icons,
+:host(.h-text-input.disabled) .input-box .h-icons{
+	color: $input-box-icon-color-disabled;
+}

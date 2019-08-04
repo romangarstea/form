@@ -1,0 +1,150 @@
+@import '../../../../../assets/theme/light/variable';
+
+//HOST
+$host-minwidth: 80px;
+$host-maxwidth: 378px;
+
+//INPUT-BOX
+$icon-size: 18px;
+$icon-padding: 0 6px;
+$input-box-height: 32px;
+
+//INPUT
+$input-height: 18px;
+
+//-------------------
+
+//DEFAULT
+$input-box-border-color: $color-theme-300;
+$icon-color: $color-theme-400;
+$error-color: $color-error-banner;
+
+//HOVER
+$input-box-border-color-hover: $color-theme-500;
+$icon-color-hover: $color-theme-500;
+
+//FOCUS
+$input-box-border-color-focus: $color-accent-700;
+$icon-color-focus: $color-accent-700;
+
+//ERROR
+$input-box-border-color-error: $color-error-banner;
+
+//DISABLED
+$input-box-border-color-disabled: $color-theme-200;
+$input-box-background-color-disabled: $color-theme-200;
+$input-box-input-text-color-disabled: $color-theme-500;
+$input-box-input-placeholder-color-disabled: $color-theme-500;
+$input-box-icon-color-disabled: $color-theme-200;
+
+/////////////////////////////////////////
+/////////////////////////////////////////
+
+:host(.h-number-input) {
+	min-width: $host-minwidth;
+	max-width: $host-maxwidth;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(3, min-content);
+	align-items: center;
+}
+
+:host(.h-number-input) .input-box {
+	width: 100%;
+	height: $input-box-height;
+	display: grid;
+	grid-template-columns: min-content auto min-content;
+	align-items: center;
+
+	border: 1px solid $input-box-border-color;
+	border-radius: $border-radius;
+	background-color: white;
+
+	::ng-deep input[type=number] {
+		width: 100%;
+		height: $input-height;
+		@include body1();
+		color: $color-theme-700;
+		text-align: center;
+		border-radius: $border-radius;
+
+		outline: none;
+		border: none;
+	}
+
+	// Disable Arrows on Number Inputs
+	::ng-deep input[type=number]::-webkit-inner-spin-button,
+	::ng-deep input[type=number]::-webkit-outer-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+	::ng-deep input[type=number] {
+		-moz-appearance:textfield;
+	}
+
+	.material-icons {
+		font-size: $icon-size;
+		color: $icon-color !important;
+		margin: $icon-padding;
+		border-radius: $border-radius;
+		user-select: none;
+		cursor: pointer;
+	}
+}
+
+
+//// HOVER
+/////////////////////////////////////////
+:host(.h-number-input):hover .input-box {
+	border: 1px solid $input-box-border-color-hover;
+}
+
+[decrement]:hover, [increment]:hover {
+	background-color: $color-accent-200;
+}
+
+//// FOCUS
+/////////////////////////////////////////
+:host(.h-number-input.focus) .material-icons {
+	color: $icon-color-focus !important;;
+}
+
+:host(.h-number-input.focus) .input-box {
+	border: 1px solid $input-box-border-color-focus;
+}
+
+:host(.h-number-input.focus) .input-box ::ng-deep input[type=number] {
+	background: $color-accent-200;
+}
+
+//:host(.focus) ::ng-deep input[type=number]::selection {
+//	background: transparent; /* WebKit/Blink Browsers */
+//}
+//
+//:host(.focus) ::ng-deep input[type=number]::-moz-selection {
+//	background: transparent; /* Gecko Browsers */
+//}
+
+//// ERROR
+/////////////////////////////////////////
+:host(.h-number-input.error) .input-box {
+	border: 1px solid $input-box-border-color-error;
+}
+
+//// DISABLED
+/////////////////////////////////////////
+:host(.h-number-input.disabled) .input-box {
+	border: 1px solid $input-box-border-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-number-input.disabled) .input-box ::ng-deep [hNumberInput]:disabled{
+	color: $input-box-input-text-color-disabled;
+	background-color: $input-box-background-color-disabled;
+	border-color: $input-box-background-color-disabled;
+}
+
+:host(.h-number-input.disabled) .input-box .material-icons,
+:host(.h-number-input.disabled) .input-box .h-icons{
+	color: $input-box-icon-color-disabled;
+}

@@ -1,0 +1,56 @@
+@import '../../../../../../assets/theme/light/variable';
+
+.hint-box {
+	width: 200px;
+
+	display: grid;
+	grid-template-columns: auto min-content;
+	grid-auto-flow: row;
+	grid-auto-rows: auto;
+	align-items: start;
+
+	[count] {
+		grid-row-start: 1;
+		grid-row-end: -1;
+		grid-column-start: 2;
+		grid-column-end: 3;
+
+		@include body4();
+		color: $color-theme-600;
+		line-height: 18px;
+	}
+
+	::ng-deep [hint] {
+		@include body4();
+		color: $color-theme-600;
+		padding-right: 12px;
+	}
+
+
+	// Error display: none
+	::ng-deep [error] {
+		@include h4();
+		color: $color-error-banner;
+		line-height: 18px; // icon height
+
+		display: none;
+		grid-template-columns: min-content auto;
+		align-items: center;
+		grid-column-gap: 6px;
+		padding-right: 6px;
+
+		.material-icons {
+			font-size: 18px;
+			align-self: start;
+			color: $color-error-banner !important;
+		}
+	}
+}
+
+
+// Error display: grid if is class '.ng-dirty'
+:host(.ng-dirty.required):not(.text) .hint-box ::ng-deep [error]{
+	display: grid;
+}
+
+

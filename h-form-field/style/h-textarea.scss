@@ -1,0 +1,104 @@
+@import '../../../../../assets/theme/light/variable';
+
+//HOST
+$host-minwidth: 200px;
+$host-maxwidth: 378px;
+
+//TEXTAREA
+$textarea-minheight: 80px;
+$textarea-maxheight: 200px;
+$textarea-minwidth: 100%; //width fixed
+$textarea-padding: 12px 12px;
+@mixin textarea-text {
+	@include body1();
+	color: $color-theme-700;
+}
+
+//-------------------
+
+//DEFAULT
+$textarea-default-border: $color-theme-300;
+
+//HOVER
+$textarea-hover-border: $color-theme-500;
+
+//FOCUS
+$textarea-focus-border: $color-accent-700;
+
+//DISABLED
+$input-box-border-color-disabled: $color-theme-200;
+$input-box-background-color-disabled: $color-theme-200;
+$input-box-input-text-color-disabled: $color-theme-500;
+$input-box-input-placeholder-color-disabled: $color-theme-500;
+$input-box-icon-color-disabled: $color-theme-200;
+
+
+/////////////////////////////////////////
+/////////////////////////////////////////
+
+:host(.h-textarea) {
+	min-width: $host-minwidth;
+	max-width: $host-maxwidth;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(3, min-content);
+	align-items: center;
+}
+
+:host(.h-textarea) ::ng-deep textarea {
+	width: 100%;
+	min-width: $textarea-minwidth;
+	max-width: $host-maxwidth;
+
+	min-height: $textarea-minheight;
+	max-height: $textarea-maxheight;
+
+	@include textarea-text();
+
+	outline: none;
+	border: 1px solid $textarea-default-border;
+	border-radius: $border-radius;
+	padding: $textarea-padding;
+	background-color: white;
+}
+
+//// HOVER
+/////////////////////////////////////////
+:host(.h-textarea):hover ::ng-deep textarea {
+	border: 1px solid $textarea-hover-border;
+}
+
+//// FOCUS
+/////////////////////////////////////////
+:host(.h-textarea.focus) ::ng-deep textarea {
+	border: 1px solid $textarea-focus-border;
+}
+
+//// ERROR
+/////////////////////////////////////////
+:host(.h-textarea.error) ::ng-deep textarea {
+	border: 1px solid $color-error-banner;
+}
+
+//// DISABLED
+/////////////////////////////////////////
+:host(.h-textarea.disabled) .input-box {
+	border: 1px solid $input-box-border-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-textarea.disabled) .input-box ::ng-deep textarea:disabled{
+	color: $input-box-input-text-color-disabled;
+	background-color: $input-box-background-color-disabled;
+	border-color: $input-box-background-color-disabled;
+}
+
+:host(.h-textarea.disabled) .input-box ::ng-deep textarea:disabled::placeholder{
+	color: $input-box-input-placeholder-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-textarea.disabled) .input-box .material-icons,
+:host(.h-textarea.disabled) .input-box .h-icons{
+	color: $input-box-icon-color-disabled;
+}

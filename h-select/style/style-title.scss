@@ -1,0 +1,319 @@
+@import '../../../../../../assets/theme/light/variable';
+
+/**
+ *
+ *
+ *
+ *
+ */
+
+//HOST
+$host-width: 200px;
+
+//INPUT-BOX
+$input-box-padding: 0 0 0 12px;
+$input-box-height: 32px;
+$input-box-small-height: 24px;
+$input-height: $input-box-height - 4;
+$pressed-color: $color-theme-400;
+
+//DROPDOWN BOX
+$dropdownBox-margin-top: 4px;
+$dropdownBox-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+
+//-------------------
+
+//DEFAULT
+$icon-color: $color-theme-400;
+$input-box-border-color: $color-theme-200;
+$input-box-background-color: $color-theme-200;
+
+@mixin input-text() {
+	@include h3();
+	color: $color-theme-700;
+}
+
+//HOVER
+$input-box-border-color-hover: $color-theme-300;
+$input-box-background-color-hover: $color-theme-300;
+$input-text-color-hover: $color-theme-700;
+$input-placeholder-color-hover: $color-theme-700;
+$icon-color-hover: $color-theme-500;
+
+//PRESSED
+$input-box-border-color-pressed: $color-theme-400;
+$input-box-background-color-pressed: $color-theme-400;
+$input-text-color-pressed: $color-theme-700;
+$input-placeholder-color-pressed: $color-theme-700;
+$icon-color-pressed: $color-theme-500;
+
+//FOCUS -> DSM TAB KEY
+$input-box-box-shadow-focus: 0px 0px 5px transparent;
+$input-box-border-color-focus: $color-theme-200;
+$input-box-background-color-focus: $color-theme-200;
+$input-text-color-focus: $color-theme-700;
+$input-placeholder-color-focus: $color-theme-700;
+$icon-color-focus: $color-theme-400;
+
+//OPEN -> DSM ACTIVE
+$input-box-box-shadow-open: none;
+$input-box-border-color-open: $color-accent-300;
+$input-box-background-color-open: $color-accent-300;
+$input-text-color-open: $color-theme-700;
+$input-placeholder-color-open: $color-theme-700;
+$icon-color-open: $color-accent-500;
+
+//DISABLED
+$input-box--border-color-disabled: $color-theme-200;
+$input-box-background-color-disabled: $color-theme-200;
+$input-text-color-disabled: $color-theme-400;
+$input-placeholder-color-disabled: $color-theme-400;
+$icon-color-disabled: $color-theme-300;
+
+//ANIMATION
+$transition-icon: 0.2s transform cubic-bezier(.77, .07, .8, 1.44), 0.1s border-color cubic-bezier(.77, .07, .8, 1.44);
+$transition-input: 0.1s all cubic-bezier(.77, .07, .8, 1.44);
+$transition-dropdownBox: 0.1s height cubic-bezier(.77, .07, .8, 1.44);
+
+
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+
+:host(.style-title) {
+	position: relative;
+	width: $host-width;
+}
+
+//// INPUT CONTAINER //////////////////////
+:host(.style-title) .input-box {
+	height: $input-box-height;
+	width: 200px;
+	display: grid;
+	grid-template-columns: auto min-content;
+	grid-template-rows: 100%;
+	align-items: center;
+
+	border: 1px solid $input-box-border-color;
+	background-color: $input-box-background-color;
+	border-radius: $border-radius;
+	padding: $input-box-padding;
+	cursor: pointer;
+
+	input[type=text] {
+		width: 100%;
+		height: $input-height;
+
+		@include input-text();
+
+		outline: none;
+		box-shadow: none;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+		user-select: none;
+
+		transition: $transition-input;
+
+		//text-overflow: ellipsis;
+		//white-space: nowrap;
+		//overflow: hidden;
+		//text-align: left;
+		//user-select: none;
+
+		&::selection {
+			background: transparent; /* WebKit/Blink Browsers */
+		}
+		&::-moz-selection {
+			background: transparent; /* Gecko Browsers */
+		}
+	}
+
+	input[type=text]::placeholder {
+		@include input-text();
+		transition: $transition-input;
+	}
+
+	// Icon
+	.icon-box {
+		width: 32px;
+		height: 32px;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.icon-triangle {
+		width: 0;
+		height: 0;
+		margin-top: 6px;
+		border: 6px solid;
+		border-color: $icon-color transparent transparent transparent;
+		border-radius: 3px;
+
+		transition: $transition-icon;
+		transform-origin: 6px 2px;
+	}
+}
+
+//// BOTTOM CONTAINER /////////////////////
+:host(.style-title) .bottom-container{
+	position: relative;
+
+	.dropdownBox {
+		width: 200px;
+		height: 0;
+		position: absolute;
+		top: 0;
+		z-index: 99;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		box-sizing: border-box;
+
+		border-radius: $border-radius;
+		box-shadow: $dropdownBox-box-shadow;
+		transition: $transition-dropdownBox;
+
+		margin-top: $dropdownBox-margin-top;
+		background-color: $color-theme-000;
+	}
+
+	::ng-deep h-select-option {
+		min-height: 32px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		padding: 0 12px;
+	}
+
+	::ng-deep h-select-option.hidden {
+		display: none;
+	}
+
+	::ng-deep h-select-option .markLetters {
+		color: white;
+		background-color: $color-accent-300;
+		border-radius: $border-radius;
+	}
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+
+//// HOVER /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-title.hover) .input-box {
+	border: 1px solid $input-box-border-color-hover;
+	background-color: $input-box-background-color-hover;
+}
+//--------------------------------------------------
+:host(.style-title.hover) .input-box input[type=text],
+:host(.style-title.hover) .input-box input[type=text]::placeholder,
+:host(.style-title.hover.low.small) .input-box input[type=text],
+:host(.style-title.hover.low.small) .input-box input[type=text]::placeholder {
+	color: $input-text-color-hover;
+}
+//--------------------------------------------------
+:host(.style-title.hover) .input-box .icon-triangle {
+	border-color: $icon-color-hover transparent transparent transparent;
+}
+:host(.style-title.hover.low.small) .input-box .icon-triangle {
+	border-color: $icon-color-hover transparent transparent transparent;
+}
+
+//// PRESSED /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-title.pressed):not(.open) .input-box {
+	border: 1px solid $input-box-border-color-pressed;
+	background-color: $input-box-background-color-pressed;
+	box-shadow: none;
+}
+//--------------------------------------------------
+:host(.style-title.pressed):not(.open) .input-box input[type=text],
+:host(.style-title.pressed):not(.open) .input-box input[type=text]::placeholder {
+	color: $input-text-color-pressed;
+}
+:host(.style-title.pressed.low.small):not(.open) .input-box input[type=text],
+:host(.style-title.pressed.low.small):not(.open) .input-box input[type=text]::placeholder {
+	color: $input-text-color-pressed;
+}
+//--------------------------------------------------
+:host(.style-title.pressed):not(.open) .input-box .icon-triangle,
+:host(.style-title.pressed.low.small):not(.open) .input-box .icon-triangle {
+	border-color: $icon-color-pressed transparent transparent transparent;
+}
+
+//// FOCUS /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-title.focus) .input-box {
+	border: 1px solid $input-box-border-color-focus;
+	background-color: $input-box-background-color-focus;
+	box-shadow: $input-box-box-shadow-focus;
+}
+//--------------------------------------------------
+:host(.style-title.focus) .input-box input[type=text],
+:host(.style-title.focus) .input-box input[type=text]::placeholder {
+	color: $input-text-color-focus;
+}
+:host(.style-title.focus.low.small) .input-box input[type=text],
+:host(.style-title.focus.low.small) .input-box input[type=text]::placeholder {
+	color: $color-theme-800;
+}
+//--------------------------------------------------
+:host(.style-title.focus) .input-box .icon-triangle {
+	border-color: $icon-color-focus transparent transparent transparent;
+}
+:host(.style-title.focus.low.small) .input-box .icon-triangle {
+	border-color: $color-theme-800 transparent transparent transparent;
+}
+
+//// OPEN ///////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-title.open) .input-box {
+	border: 1px solid $input-box-border-color-open;
+	background-color: $input-box-background-color-open;
+	box-shadow: none;
+}
+//--------------------------------------------------
+:host(.style-title.open) .input-box input[type=text],
+:host(.style-title.open) .input-box input[type=text]::placeholder {
+	color: $input-text-color-open;
+}
+:host(.style-title.open.low.small) .input-box input[type=text],
+:host(.style-title.open.low.small) .input-box input[type=text]::placeholder {
+	color: $input-text-color-open;
+}
+//--------------------------------------------------
+:host(.style-title.open) .input-box .icon-triangle {
+	border-color: $icon-color-open transparent transparent transparent;
+}
+:host(.style-title.open.low.small) .input-box .icon-triangle {
+	border-color: $icon-color-open transparent transparent transparent;
+}
+
+//// DISABLED /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-title.disabled) .input-box {
+	border: 1px solid $input-box--border-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+//--------------------------------------------------
+:host(.style-title.disabled) .input-box input[type=text],
+:host(.style-title.disabled) .input-box input[type=text]::placeholder {
+	color: $input-text-color-disabled;
+}
+:host(.style-title.disabled.low.small) .input-box input[type=text],
+:host(.style-title.disabled.low.small) .input-box input[type=text]::placeholder {
+	color: $input-text-color-disabled;
+}
+//--------------------------------------------------
+:host(.style-title.disabled) .input-box .icon-triangle {
+	border-color: $icon-color-disabled transparent transparent transparent;
+}
+:host(.style-title.disabled.low.small) .input-box .icon-triangle {
+	border-color: $icon-color-disabled transparent transparent transparent;
+}

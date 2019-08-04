@@ -1,0 +1,275 @@
+@import '../../../../../../assets/theme/light/variable';
+
+/**
+ *
+ *
+ *
+ */
+
+//HOST
+$host-width: 250px;
+
+//INPUT-BOX
+$input-box-padding: 0 12px;
+$input-box-height: 32px;
+$input-box-icon-size: 18px;
+
+//INPUT
+$input-height: $input-box-height - 4;
+
+//DROPDOWN BOX
+$dropdownBox-margin-top: 4px;
+
+//-------------------
+
+//DEFAULT
+$input-box-border-color: $color-theme-300;
+$input-box-icon-color: $color-theme-300;
+$icon-color: $color-theme-300;
+@mixin input-placeholder() {
+	@include body1();
+	font-style: italic;
+	color: $color-theme-400;
+}
+@mixin input-text() {
+	@include body1();
+	color: $color-theme-700;
+}
+
+//HOVER
+$input-box-border-color-hover: $color-theme-500;
+$input-box-input-text-color-hover: $color-theme-700;
+$input-box-input-placeholder-color-hover: $color-theme-400;
+$input-box-icon-color-hover: $color-theme-500;
+
+//FOCUS
+$input-box-border-color-focus: $color-accent-700;
+$input-box-input-text-color-focus: $color-theme-700;
+$input-box-input-placeholder-color-focus: $color-theme-400;
+$input-box-icon-color-focus: $color-accent-700;
+$dropdownBox-box-shadow-focus: 0px 0px 3px rgba(0, 0, 0, 0.3);
+
+//ERROR
+$input-box-border-color-error: $color-error-banner;
+
+//DISABLED
+$input-box-border-color-disabled: $color-theme-500;
+$input-box-input-text-color-disabled: $color-theme-500;
+$input-box-input-placeholder-color-disabled: $color-theme-500;
+$input-box-icon-color-disabled: $color-theme-500;
+
+//ANIMATION
+$transition-icon: 0.2s transform cubic-bezier(.77, .07, .8, 1.44), 0.1s border-color cubic-bezier(.77, .07, .8, 1.44);
+$transition-input: 0.1s all cubic-bezier(.77, .07, .8, 1.44);
+$transition-dropdownBox: 0.1s height cubic-bezier(.77, .07, .8, 1.44);
+
+
+/////////////////////////////////////////
+/////////////////////////////////////////
+
+:host(.style-search) {
+	position: relative;
+	width: $host-width;
+}
+
+:host(.style-search.readonly),
+:host(.style-search.readonly) .input-box input {
+	cursor: pointer;
+}
+
+:host(.style-search) .input-box {
+	height: $input-box-height;
+	width: 200px;
+	display: grid;
+	grid-template-columns: auto min-content;
+	grid-template-rows: 100%;
+	align-items: center;
+
+	border: 1px solid $input-box-border-color;
+	border-radius: $border-radius;
+	padding: $input-box-padding;
+
+	input[type=text] {
+		width: 100%;
+		height: $input-height;
+
+		@include input-text();
+
+		outline: none;
+		box-shadow: none;
+		border: none;
+		background-color: transparent;
+		user-select: none;
+
+		transition: $transition-input;
+	}
+
+	input[type=text]::placeholder {
+		@include input-placeholder();
+		transition: $transition-input;
+	}
+
+	// Icon
+	.icon-box {
+		display: grid;
+		grid-auto-flow: column;
+		grid-auto-columns: min-content;
+		grid-template-rows: min-content;
+		grid-column-gap: 12px;
+
+		justify-content: center;
+		align-items: center;
+
+		.icon-triangle {
+			width: 0;
+			height: 0;
+			margin-top: 6px;
+			border: 6px solid;
+			border-color: $icon-color transparent transparent transparent;
+			border-radius: 3px;
+
+			transition: $transition-icon;
+			transform-origin: 6px 2px;
+		}
+
+		.material-icons {
+			font-size: $input-box-icon-size;
+			color: $input-box-icon-color;
+			user-select: none;
+		}
+
+		.cancel{
+			display: none;
+			cursor: pointer;
+		}
+	}
+}
+
+:host(.style-search) .bottom-container{
+	position: relative;
+
+	.dropdownBox {
+		width: 200px;
+		height: 0;
+		position: absolute;
+		top: 0;
+		z-index: 99;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		box-sizing: border-box;
+
+		border-radius: $border-radius;
+		box-shadow: $dropdownBox-box-shadow-focus;
+		transition: $transition-dropdownBox;
+
+		margin-top: $dropdownBox-margin-top;
+		background-color: $color-theme-000;
+	}
+
+	::ng-deep h-select-option {
+		min-height: 32px;
+		padding: 0 12px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+	}
+
+	::ng-deep h-select-option.hidden {
+		display: none;
+	}
+
+	::ng-deep h-select-option .markLetters {
+		color: white;
+		background-color: $color-accent-300;
+		border-radius: $border-radius;
+	}
+}
+
+
+//// HOVER
+/////////////////////////////////////////
+:host(.style-search.hover) .input-box {
+	border: 1px solid $input-box-border-color-hover;
+}
+
+:host(.style-search.hover) input[type=text] {
+	color: $input-box-input-text-color-hover;
+}
+
+:host(.style-search.hover) input[type=text]::placeholder {
+	color: $input-box-input-placeholder-color-hover;
+}
+
+:host(.style-search.hover) .input-box .icon-box .material-icons {
+	color: $input-box-icon-color-hover;
+}
+
+:host(.style-search.text.hover) .input-box .icon-box .cancel {
+	display: block;
+}
+
+:host(.style-search.hover) .input-box .icon-box .icon-triangle {
+	border-color: $input-box-icon-color-hover transparent transparent transparent;
+}
+
+//// FOCUS
+/////////////////////////////////////////
+:host(.style-search.focus) .input-box {
+	border: 1px solid $input-box-border-color-focus;
+}
+
+:host(.style-search.focus) input[type=text] {
+	color: $input-box-input-text-color-focus;
+}
+
+:host(.style-search.focus) input[type=text]::placeholder {
+	color: $input-box-input-placeholder-color-focus;
+}
+
+:host(.style-search.focus) .input-box .icon-box .material-icons {
+	color: $input-box-icon-color-focus;
+}
+
+:host(.style-search.focus) .input-box .icon-box .icon-triangle {
+	border-color: $input-box-icon-color-focus transparent transparent transparent;
+}
+
+//// OPEN
+/////////////////////////////////////////
+:host(.style-search.open) .input-box {
+	border: 1px solid $input-box-border-color-focus;
+}
+
+//// TEXT
+/////////////////////////////////////////
+//:host(.style-search.text) .input-box .icon-box .cancel {
+//	display: block;
+//}
+
+//// ERROR
+/////////////////////////////////////////
+:host(.style-search.ng-dirty.required):not(.text) .input-box {
+	border: 1px solid $input-box-border-color-error;
+}
+
+//// DISABLED
+/////////////////////////////////////////
+:host(.style-search.disabled) .input-box {
+	border: 1px solid $input-box-border-color-disabled;
+}
+
+:host(.style-search.disabled) input[type=text] {
+	color: $input-box-input-text-color-disabled;
+}
+
+:host(.style-search.disabled) input[type=text]::placeholder {
+	color: $input-box-input-placeholder-color-disabled;
+}
+
+:host(.style-search.disabled) .input-box .material-icons {
+	color: $input-box-icon-color-disabled;
+}
+
+:host(.style-search.disabled) .input-box .icon-box .icon-triangle {
+	border-color: $input-box-icon-color-disabled transparent transparent transparent;
+}

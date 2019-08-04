@@ -1,0 +1,194 @@
+@import '../../../../assets/theme/light/variable';
+@import '../../../../assets/theme/light/mixin';
+
+/*
+CUSTOM RADIOBUTTON
+DYNAMIC ELEMENTS
+	radiobutton
+		border (color)
+	indicator
+		background (color)
+
+ELEMENT STATE
+	default
+	hover
+	active or/and focus
+	disabled
+
+RADIOBUTTON STATE
+	unselected
+	selected
+*/
+
+// Radiobutton
+$radiobutton-dimension: 16px;
+$radiobutton-border-width: 1px;
+
+// Indicator
+$indicator-diameter: 10px;
+
+// Label
+$label-padding-left: 12px;
+@mixin text {
+	color: $color-theme-700;
+	@include h3;
+}
+
+// DEFAULT
+$radiobutton-border-color: $color-accent-300;
+$radiobutton-background-color: transparent;
+$indicator-background-color: transparent;
+
+// SELECTED
+$radiobutton-border-color-selected: $color-accent-300;
+$radiobutton-background-color-selected: transparent;
+$indicator-background-color-selected: $color-accent-700;
+
+// FOCUS
+$radiobutton-border-color-focus: $color-accent-300;
+$radiobutton-background-color-focus: transparent;
+$radiobutton-box-shadow-focus: 0px 0px 5px $color-accent-700;
+$indicator-background-color-focus: $color-accent-700;
+
+// DISABLED
+$label-color-disabled: $color-theme-300;
+
+// DISABLED UNSELECTED
+$radiobutton-border-color-disabled: $color-theme-300;
+$radiobutton-background-color-disabled: $color-theme-200;
+$indicator-background-color-disabled: transparent;
+
+// DISABLED SELECTED
+$radiobutton-border-color-disabled-selected: $color-theme-300;
+$radiobutton-background-color-disabled-selected: transparent;
+$indicator-background-color-disabled-selected: $color-theme-300;
+
+// INVERTED
+$label-color-inverted: $color-theme-300;
+
+:host{
+	height: $radiobutton-dimension;
+	width: min-content;
+}
+
+// LABEL
+$label-padding: 0 12px;
+
+label {
+	width: 100%;
+	height: $radiobutton-dimension;
+
+	display: inline-grid;
+	grid-auto-flow: column;
+	grid-auto-columns: max-content;
+	grid-template-rows: min-content;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+	@include unselectable;
+
+	.radiobutton {
+		position: relative;
+		box-sizing: border-box;
+		height: $radiobutton-dimension;
+		width: $radiobutton-dimension;
+		border-radius: $radiobutton-dimension / 2;
+		border-width: $radiobutton-border-width;
+		border-style: solid;
+		outline: none;
+
+		border-color: $radiobutton-border-color;
+		background-color: $radiobutton-background-color;
+
+		.indicator {
+			position: absolute;
+			left: ($radiobutton-dimension - $indicator-diameter - ($radiobutton-border-width * 2)) / 2;
+			top: ($radiobutton-dimension - $indicator-diameter - ($radiobutton-border-width * 2)) / 2;
+			width: $indicator-diameter;
+			height: $indicator-diameter;
+			border-radius: $indicator-diameter / 2;
+
+			background-color: $indicator-background-color;
+		}
+	}
+
+	.label {
+		padding-left: $label-padding-left;
+		@include text;
+	}
+}
+
+// FOCUS
+.radiobutton:focus {
+	border-color: $radiobutton-border-color-focus;
+	background-color: $radiobutton-background-color-focus;
+	box-shadow: $radiobutton-box-shadow-focus;
+}
+
+// SELECTED
+:host(.selected) {
+	.radiobutton {
+		border-color: $radiobutton-border-color-selected;
+		background-color: $radiobutton-background-color-selected;
+		.indicator{
+			background-color: $indicator-background-color-selected;
+		}
+	}
+}
+
+// DISABLED UNSELECTED
+:host(.disabled) {
+	.radiobutton {
+		border-color: $radiobutton-border-color-disabled;
+		background-color: $radiobutton-background-color-disabled;
+		.indicator{
+			background-color: $indicator-background-color-disabled;
+		}
+	}
+
+	.label {
+		color: $label-color-disabled;
+	}
+}
+
+// DISABLED SELECTED
+:host(.disabled.selected) {
+	.radiobutton {
+		border-color: $radiobutton-border-color-disabled-selected;
+		background-color: $radiobutton-background-color-disabled-selected;
+		.indicator{
+			background-color: $indicator-background-color-disabled-selected;
+		}
+	}
+}
+
+// INVERTED
+:host(.h-inverted) label{
+	.radiobutton{
+		.indicator{
+		}
+	}
+	.label{
+		color: $label-color-inverted;
+	}
+}
+
+// INVERTED DISABLED
+:host(.h-inverted.disabled) label{
+	.radiobutton{
+		.indicator{
+		}
+	}
+	.label{
+	}
+}
+
+// INVERTED DISABLED SELECTED
+:host(.h-inverted.disabled.selected) label{
+	.radiobutton{
+		.indicator{
+		}
+	}
+	.label{
+	}
+}

@@ -1,0 +1,65 @@
+@import '../../../../../../assets/theme/light/variable';
+
+//LABEL
+$label-padding-bottom: 2px;
+
+//DEFAULT
+@mixin label-text() {
+	@include h4();
+	color: $color-theme-600;
+}
+
+//HOVER
+$label-color-hover: $color-theme-700;
+
+//FOCUS
+$label-color-focus: $color-accent-700;
+
+//ERROR
+$label-color-error: $color-error-banner;
+
+//DISABLED
+/////////////////////////////////////////
+$label-color-disabled: $color-theme-500;
+
+
+:host ::ng-deep [label] {
+
+	@include label-text;
+
+	width: 200px;
+	display: grid;
+	grid-template-columns: auto;
+	padding-bottom: $label-padding-bottom;
+
+	> div {
+		white-space: nowrap;
+		text-overflow: ellipsis;
+		overflow-x: hidden;
+	}
+}
+
+//// HOVER
+/////////////////////////////////////////
+:host:hover ::ng-deep [label] {
+	color: $label-color-hover;
+}
+
+//// FOCUS
+/////////////////////////////////////////
+:host(.focus) ::ng-deep [label],
+:host(.open) ::ng-deep [label] {
+	color: $label-color-focus;
+}
+
+//// ERROR
+/////////////////////////////////////////
+:host(.ng-dirty.required):not(.text) ::ng-deep [label] {
+	color: $label-color-error;
+}
+
+//// DISABLED
+/////////////////////////////////////////
+:host(.disabled) ::ng-deep [label] {
+	color: $label-color-disabled;
+}

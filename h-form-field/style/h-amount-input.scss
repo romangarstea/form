@@ -1,0 +1,160 @@
+@import '../../../../../assets/theme/light/variable';
+
+//HOST
+$host-minwidth: 100px;
+$host-maxwidth: 378px;
+
+//INPUT-BOX
+$input-box-padding: 0px 6px;
+$icon-size: 18px;
+$input--icon-padding: 0px;
+
+//INPUT
+$input-height: 32px;
+
+//-------------------
+
+//DEFAULT
+$input-border-color: $color-theme-300;
+$input--icon-color: $color-theme-400;
+$error-color: $color-error-banner;
+
+//HOVER
+$input-border-color-hover: $color-theme-500;
+$input-icon-color-hover: $color-theme-500;
+
+//TEXT
+$input-icon-color-text: $color-theme-700;
+
+//FOCUS
+$input-box--border-color-focus: $color-accent-700;
+$input-icon-color-focus: $color-accent-700;
+
+//ERROR
+$input-icon-color-error: $color-error-banner;
+$input-box-border-color-error: $color-error-banner;
+
+//DISABLED
+$input-box-border-color-disabled: $color-theme-200;
+$input-box-background-color-disabled: $color-theme-200;
+$input-box-input-text-color-disabled: $color-theme-500;
+$input-box-input-placeholder-color-disabled: $color-theme-500;
+$input-box-icon-color-disabled: $color-theme-200;
+
+
+/////////////////////////////////////////
+/////////////////////////////////////////
+
+:host(.h-amount-input) {
+	min-width: $host-minwidth;
+	max-width: $host-maxwidth;
+	display: grid;
+	grid-template-columns: 1fr;
+	grid-template-rows: repeat(3, min-content);
+	align-items: center;
+}
+
+:host(.h-amount-input) .input-box {
+	width: 100%;
+	display: grid;
+	grid-template-columns: min-content auto min-content;
+	align-items: center;
+
+	border: 1px solid $input-border-color;
+	border-radius: $border-radius;
+	padding: $input-box-padding;
+	background-color: white;
+
+	::ng-deep [hAmountInput] {
+		width: 100%;
+		height: $input-height;
+		grid-column-start: 2;
+		grid-column-end: 3;
+
+		@include body1();
+		color: $color-theme-700;
+		text-align: right;
+
+		outline: none;
+		border: none;
+
+	}
+
+	::ng-deep [hAmountInput]::-webkit-inner-spin-button {
+		-webkit-appearance: none;
+		margin: 0;
+	}
+
+	::ng-deep .material-icons {
+		font-size: $icon-size;
+	}
+
+	::ng-deep [amountLeftIcon],
+	::ng-deep [amountRightIcon] {
+		padding-left: $input--icon-padding;
+		color: $input--icon-color !important;
+	}
+}
+
+//// HOVER
+/////////////////////////////////////////
+:host(.h-amount-input):hover .input-box {
+	border: 1px solid $input-border-color-hover;
+}
+
+:host(.h-amount-input):hover .input-box ::ng-deep [amountLeftIcon],
+:host(.h-amount-input):hover .input-box ::ng-deep [amountRightIcon] {
+	color: $input-icon-color-hover !important;
+}
+
+//// FOCUS
+/////////////////////////////////////////
+:host(.h-amount-input.focus) .input-box {
+	border: 1px solid $input-box--border-color-focus;
+}
+
+:host(.h-amount-input.focus) .input-box ::ng-deep [amountLeftIcon],
+:host(.h-amount-input.focus) .input-box ::ng-deep [amountRightIcon] {
+	color: $input-icon-color-focus !important;
+}
+
+//// TEXT
+/////////////////////////////////////////
+:host(.h-amount-input.text) .input-box ::ng-deep [amountLeftIcon],
+:host(.h-amount-input.text) .input-box ::ng-deep [amountRightIcon] {
+	color: $input-icon-color-text !important;
+}
+
+//// ERROR
+/////////////////////////////////////////
+:host(.h-amount-input.error) .input-box {
+	border: 1px solid $input-box-border-color-error;
+}
+
+:host(.h-amount-input.error) .input-box ::ng-deep [amountLeftIcon],
+:host(.h-amount-input.error) .input-box ::ng-deep [amountRightIcon] {
+	color: $input-icon-color-error !important;
+}
+
+//// DISABLED
+/////////////////////////////////////////
+:host(.h-amount-input.disabled) .input-box {
+	border: 1px solid $input-box-border-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-amount-input.disabled) .input-box ::ng-deep [hAmountInput]:disabled{
+	color: $input-box-input-text-color-disabled;
+	background-color: $input-box-background-color-disabled;
+	border-color: $input-box-background-color-disabled;
+}
+
+:host(.h-amount-input.disabled) .input-box ::ng-deep [hAmountInput]:disabled::placeholder{
+	color: $input-box-input-placeholder-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+
+:host(.h-amount-input.disabled) .input-box .material-icons,
+:host(.h-amount-input.disabled) .input-box .h-icons{
+	color: $input-box-icon-color-disabled;
+}

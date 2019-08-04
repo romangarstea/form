@@ -1,0 +1,300 @@
+@import '../../../../assets/theme/light/variable';
+
+/*
+Custom Checkbox
+https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_custom_checkbox
+https://github.com/angular/components/blob/master/src/material/checkbox/checkbox.ts
+
+DYNAMIC ELEMENTS
+	CHECKBOX
+		BORDER (color)
+		BACKGROUND (color)
+	INDICATOR
+		BORDER (color)
+
+ELEMENT STATE
+	DEFAULT
+	HOVER
+	ACTIVE or/and FOCUS
+	DISABLED
+
+CHECKBOX STATE
+	UNCHECKED
+	CHECKED
+	INDETERMINATE
+*/
+
+// box
+$checkbox-dimension: 16px;
+$checkbox-border-width: 1px;
+$checkbox-border-radius: 2px;
+
+// indicator
+$indicator-width: 5px;
+$indicator-height: 8px;
+$indicator-left: 6px;
+$indicator-top: 3px;
+$indicator-border: 2px;
+$indicator-border-radius: 1px;
+$indicator-border-color: $color-theme-000;
+$indicator-border-indeterminate-color: $color-theme-000;
+
+// indeterminate indicator
+$indicator-indeterminate-width: 8px;
+$indicator-indeterminate-height: 2px;
+$indicator-indeterminate-background-color: $color-theme-000;
+$indicator-indeterminate-left: ($checkbox-dimension - $indicator-indeterminate-width) / 2;
+$indicator-indeterminate-top: ($checkbox-dimension - $indicator-indeterminate-height) / 2;
+$indicator-indeterminate-border-radius: 1px;
+$indicator-indeterminate-border: 0px;
+
+// DEFAULT
+$checkbox-border-color-unchecked-default: $color-accent-300;
+$checkbox-border-color-checked-default: $color-accent-700;
+$checkbox-border-color-indeterminate-default: $color-accent-700;
+
+$checkbox-background-color-unchecked-default: transparent;
+$checkbox-background-color-checked-default: $color-accent-700;
+$checkbox-background-color-indeterminate-default: $color-accent-700;
+
+// HOVER
+$checkbox-border-color-unchecked-hover: $color-accent-500;
+$checkbox-border-color-checked-hover: $color-accent-800;
+$checkbox-border-color-indeterminate-hover: $color-accent-800;
+
+$checkbox-background-color-unchecked-hover: transparent;
+$checkbox-background-color-checked-hover: $color-accent-800;
+$checkbox-background-color-indeterminate-hover: $color-accent-800;
+
+// ACTIVE
+$pressed-color: darken($color-accent-800, 10%);
+$checkbox-border-color-unchecked-active: $pressed-color;
+$checkbox-border-color-checked-active: $pressed-color;
+$checkbox-border-color-indeterminate-active: $pressed-color;
+
+$checkbox-background-color-unchecked-active: $pressed-color;
+$checkbox-background-color-checked-active: $pressed-color;
+$checkbox-background-color-indeterminate-active: $pressed-color;
+
+// FOCUS
+$checkbox-box-shadow-focus: 0px 0px 3px rgba(0, 0, 0, 0.1);
+$checkbox-box-shadow-dark-focus: 0px 0px 3px rgba(0, 0, 0, 0.6);
+
+$checkbox-border-color-unchecked-focus: $color-accent-300;
+$checkbox-border-color-checked-focus: $color-accent-700;
+$checkbox-border-color-indeterminate-focus: $color-accent-700;
+
+$checkbox-background-color-unchecked-focus: transparent;
+$checkbox-background-color-checked-focus: $color-accent-700;
+$checkbox-background-color-indeterminate-focus: $color-accent-700;
+
+// DISABLED
+$checkbox-border-color-unchecked-disabled: $color-theme-200;
+$checkbox-border-color-checked-disabled: $color-theme-300;
+$checkbox-border-color-indeterminate-disabled: $color-theme-300;
+
+$checkbox-background-color-unchecked-disabled: transparent;
+$checkbox-background-color-checked-disabled: $color-theme-200;
+$checkbox-background-color-indeterminate-disabled: $color-theme-200;
+
+$label-color-disabled: $color-theme-300;
+
+// INVERTED
+$label-color-inverted: $color-theme-000;
+
+:host{
+	height: $checkbox-dimension;
+}
+
+// LABEL
+$label-padding: 12px;
+label {
+	width: 100%;
+	height: $checkbox-dimension;
+
+	display: inline-grid;
+	grid-auto-flow: column;
+	grid-auto-columns: max-content;
+	grid-template-rows: min-content;
+	align-items: center;
+	position: relative;
+	cursor: pointer;
+
+	input {
+		opacity: 0;
+		cursor: pointer;
+		height: $checkbox-dimension;
+		width: $checkbox-dimension;
+	}
+
+	.checkbox {
+		position: absolute;
+		box-sizing: border-box;
+		height: $checkbox-dimension;
+		width: $checkbox-dimension;
+		border-style: solid;
+		border-radius: $checkbox-border-radius;
+		border-width: $checkbox-border-width;
+	}
+
+	.indicator {
+		position: absolute;
+		left: $indicator-left;
+		top: $indicator-top;
+		width: $indicator-width;
+		height: $indicator-height;
+		border: solid $indicator-border-color;
+		border-width: 0 $indicator-border $indicator-border 0;
+		border-radius: $indicator-border-radius;
+		-webkit-transform: rotate(45deg);
+		-ms-transform: rotate(45deg);
+		transform: rotate(45deg);
+	}
+
+	.indicator-indeterminate {
+		position: absolute;
+		left: $indicator-indeterminate-left;
+		top: $indicator-indeterminate-top;
+		width: $indicator-indeterminate-width;
+		height: $indicator-indeterminate-height;
+		border-radius: $indicator-indeterminate-border-radius;
+		background-color: $indicator-indeterminate-background-color;
+	}
+
+	.label {
+		padding-left: $label-padding;
+		color: $color-theme-700;
+		@include body1;
+	}
+}
+
+//// DEFAULT
+///////////////////////////////////////////////////////////
+label .checkbox{
+	border-color: $checkbox-border-color-unchecked-default;
+	background-color: $checkbox-background-color-unchecked-default;
+}
+label .indicator,
+label .indicator-indeterminate{
+	display: none;
+}
+//// DEFAULT CHECKED
+label input:checked ~ .checkbox{
+	border: $checkbox-border-width solid $checkbox-border-color-checked-default;
+	background-color: $checkbox-background-color-checked-default;
+}
+label input:checked ~ .indicator{
+	display: block;
+}
+//// DEFAULT INDETERMINATE
+label input:indeterminate ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-default;
+	background-color: $checkbox-background-color-indeterminate-default;
+}
+label input:indeterminate ~ .indicator-indeterminate{
+	display: block;
+}
+label input:indeterminate:checked ~ .indicator{
+	display: none;
+}
+
+////// HOVER
+///////////////////////////////////////////////////////////
+label:hover .checkbox {
+	border-color: $checkbox-border-color-unchecked-hover;
+	background-color: $checkbox-background-color-unchecked-hover;
+}
+////// HOVER CHECKED
+label:hover input:checked ~ .checkbox{
+	border-color: $checkbox-border-color-checked-hover;
+	background-color: $checkbox-background-color-checked-hover;
+}
+////// HOVER INDETERMINATE
+label:hover input:indeterminate ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-hover;
+	background-color: $checkbox-background-color-indeterminate-hover;
+}
+////// ACTIVE
+///////////////////////////////////////////////////////////
+label:active .checkbox{
+	border-color: $checkbox-border-color-unchecked-active;
+	background-color: $checkbox-background-color-unchecked-active;
+}
+////// ACTIVE CHECKED
+label:active input:checked ~ .checkbox{
+	border-color: $checkbox-border-color-checked-active;
+	background-color: $checkbox-background-color-checked-active;
+}
+////// ACTIVE INDETERMINATE
+label:active input:indeterminate ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-active;
+	background-color: $checkbox-background-color-indeterminate-active;
+}
+////// FOCUS
+///////////////////////////////////////////////////////////
+label input:focus ~ .checkbox{
+	border-color: $checkbox-border-color-unchecked-focus;
+	background-color: $checkbox-background-color-unchecked-focus;
+	box-shadow: $checkbox-box-shadow-focus;
+}
+////// FOCUS CHECKED
+label input:checked:focus ~ .checkbox{
+	border-color: $checkbox-border-color-checked-focus;
+	background-color: $checkbox-background-color-checked-focus;
+	box-shadow: $checkbox-box-shadow-dark-focus;
+}
+////// FOCUS INDETERMINATE
+label input:indeterminate:focus ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-focus;
+	background-color: $checkbox-background-color-indeterminate-focus;
+	box-shadow: $checkbox-box-shadow-dark-focus;
+}
+////// FOCUS HOVER
+label input:focus:hover ~ .checkbox{
+	border-color: $checkbox-border-color-unchecked-hover;
+	background-color: $checkbox-background-color-unchecked-hover;
+	box-shadow: $checkbox-box-shadow-focus;
+}
+////// FOCUS HOVER CHECKED
+label input:checked:focus:hover ~ .checkbox{
+	border-color: $checkbox-border-color-checked-hover;
+	background-color: $checkbox-background-color-checked-hover;
+	box-shadow: $checkbox-box-shadow-dark-focus;
+}
+////// FOCUS HOVER INDETERMINATE
+label input:indeterminate:focus:hover ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-hover;
+	background-color: $checkbox-background-color-indeterminate-hover;
+	box-shadow: $checkbox-box-shadow-dark-focus;
+}
+
+////// INVERTED
+:host(.h-inverted) label .label {
+	color: $label-color-inverted;
+}
+
+:host(.h-inverted) label input:disabled ~ .label {
+	color: $label-color-disabled;
+}
+
+////// DISABLED
+///////////////////////////////////////////////////////////
+label input:disabled ~ *{
+	cursor: default;
+	color: $label-color-disabled;
+}
+
+label input:disabled ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-disabled;
+	background-color: $checkbox-background-color-indeterminate-disabled;
+}
+////// DISABLED CHECKED
+label input:checked:disabled ~ .checkbox{
+	border-color: $checkbox-border-color-checked-disabled;
+	background-color: $checkbox-background-color-checked-disabled;
+}
+////// DISABLED INDETERMINATE
+label input:indeterminate:disabled ~ .checkbox{
+	border-color: $checkbox-border-color-indeterminate-disabled;
+	background-color: $checkbox-background-color-indeterminate-disabled;
+}

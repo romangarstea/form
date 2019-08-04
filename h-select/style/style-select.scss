@@ -1,0 +1,344 @@
+@import '../../../../../../assets/theme/light/variable';
+
+/**
+ *
+ * sl abbreviation - small and low emphasis. :host(.small.low).
+ * Small size (height: 24px) and low emphasis (without border).
+ *
+ *
+ *
+ */
+
+//HOST
+$host-width: 200px;
+
+//INPUT-BOX
+$input-box-padding: 0 0 0 12px;
+$input-box-height: 32px;
+$input-box-small-height: 24px;
+$input-height: $input-box-height - 4;
+$pressed-color: darken($color-accent-800, 10%);
+
+//DROPDOWN BOX
+$dropdownBox-margin-top: 4px;
+$dropdownBox-box-shadow: 0px 0px 3px rgba(0, 0, 0, 0.3);
+
+//-------------------
+
+//DEFAULT
+$icon-color: $color-accent-700;
+$icon-color-sl: $color-theme-700;
+$input-box-border-color: $color-accent-700;
+$input-box-border-color-sl: transparent;
+@mixin input-text() {
+	@include button1();
+	color: $color-accent-700;
+}
+@mixin input-text-sl() {
+	@include button2();
+	color: $color-theme-700;
+}
+
+//HOVER
+$input-box-border-color-hover: $color-accent-800;
+$input-box-background-color-hover: $color-accent-800;
+$input-text-color-hover: $color-theme-000;
+$input-placeholder-color-hover: $color-theme-000;
+$icon-color-hover: $color-theme-000;
+
+//FOCUS
+$input-box-box-shadow-focus: 0px 0px 5px $color-accent-700;
+$input-box-border-color-focus: $color-accent-700;
+$input-box-background-color-focus: $color-theme-000;
+$input-text-color-focus: $color-accent-700;
+$input-placeholder-color-focus: $color-accent-700;
+$icon-color-focus: $color-accent-700;
+
+//PRESSED
+$input-box-border-color-pressed: $pressed-color;
+$input-box-background-color-pressed: $pressed-color;
+$input-text-color-pressed: $color-theme-500;
+$input-placeholder-color-pressed: $color-theme-500;
+$icon-color-pressed: $color-theme-500;
+
+//OPEN
+$input-box-box-shadow-open: none;
+$input-box-border-color-open: $pressed-color;
+$input-box-background-color-open: $pressed-color;
+$input-text-color-open: $color-theme-000;
+$input-placeholder-color-open: $color-theme-000;
+$icon-color-open: $color-theme-000;
+
+//DISABLED
+$input-box--border-color-disabled: $color-theme-500;
+$input-box-background-color-disabled: $color-theme-000;
+$input-text-color-disabled: $color-theme-500;
+$input-placeholder-color-disabled: $color-theme-500;
+$icon-color-disabled: $color-theme-500;
+
+//ANIMATION
+$transition-icon: 0.2s transform cubic-bezier(.77, .07, .8, 1.44), 0.1s border-color cubic-bezier(.77, .07, .8, 1.44);
+$transition-input: 0.1s all cubic-bezier(.77, .07, .8, 1.44);
+$transition-dropdownBox: 0.1s height cubic-bezier(.77, .07, .8, 1.44);
+
+
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+
+:host(.style-select) {
+	position: relative;
+	width: $host-width;
+}
+
+//// INPUT CONTAINER //////////////////////
+:host(.style-select) .input-box {
+	height: $input-box-height;
+	width: 200px;
+	display: grid;
+	grid-template-columns: auto min-content;
+	grid-template-rows: 100%;
+	align-items: center;
+
+	border: 1px solid $input-box-border-color;
+	border-radius: $border-radius;
+	padding: $input-box-padding;
+	cursor: pointer;
+
+	input[type=text] {
+		width: 100%;
+		height: $input-height;
+
+		@include input-text();
+
+		outline: none;
+		box-shadow: none;
+		border: none;
+		background-color: transparent;
+		cursor: pointer;
+		user-select: none;
+
+		transition: $transition-input;
+
+		//text-overflow: ellipsis;
+		//white-space: nowrap;
+		//overflow: hidden;
+		//text-align: left;
+		//user-select: none;
+
+		&::selection {
+			background: transparent; /* WebKit/Blink Browsers */
+		}
+		&::-moz-selection {
+			background: transparent; /* Gecko Browsers */
+		}
+	}
+
+	input[type=text]::placeholder {
+		@include input-text();
+		transition: $transition-input;
+	}
+
+	// Icon
+	.icon-box {
+		width: 32px;
+		height: 32px;
+
+		display: flex;
+		justify-content: center;
+		align-items: center;
+	}
+
+	.icon-triangle {
+		width: 0;
+		height: 0;
+		margin-top: 6px;
+		border: 6px solid;
+		border-color: $icon-color transparent transparent transparent;
+		border-radius: 3px;
+
+		transition: $transition-icon;
+		transform-origin: 6px 2px;
+	}
+}
+
+:host(.style-select.small) .input-box {
+	height: $input-box-small-height;
+}
+
+:host(.style-select.low) .input-box {
+	border: none;
+}
+
+:host(.style-select.small.low) .input-box {
+	input[type=text],
+	input[type=text]::placeholder {
+		@include input-text-sl();
+	}
+
+	.icon-triangle {
+		border-color: $icon-color-sl transparent transparent transparent;
+	}
+}
+
+//// BOTTOM CONTAINER /////////////////////
+:host(.style-select) .bottom-container{
+	position: relative;
+
+	.dropdownBox {
+		width: 200px;
+		height: 0;
+		position: absolute;
+		top: 0;
+		z-index: 99;
+		overflow-y: hidden;
+		overflow-x: hidden;
+		box-sizing: border-box;
+		white-space: nowrap;
+
+		border-radius: $border-radius;
+		box-shadow: $dropdownBox-box-shadow;
+		transition: $transition-dropdownBox;
+
+		margin-top: $dropdownBox-margin-top;
+		background-color: $color-theme-000;
+	}
+
+	::ng-deep h-select-option {
+		min-height: 32px;
+		overflow: hidden;
+		display: flex;
+		align-items: center;
+		padding: 0 12px;
+	}
+
+	::ng-deep h-select-option.hidden {
+		display: none;
+	}
+
+	::ng-deep h-select-option .markLetters {
+		color: white;
+		background-color: $color-accent-300;
+		border-radius: $border-radius;
+	}
+
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////
+////////////////////////////////////////////////////////////////////////////////////
+
+
+//// HOVER /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-select.hover) .input-box {
+	border: 1px solid $input-box-border-color-hover;
+	background-color: $input-box-background-color-hover;
+}
+//--------------------------------------------------
+:host(.style-select.hover) .input-box input[type=text],
+:host(.style-select.hover) .input-box input[type=text]::placeholder,
+:host(.style-select.hover.low.small) .input-box input[type=text],
+:host(.style-select.hover.low.small) .input-box input[type=text]::placeholder {
+	color: $input-text-color-hover;
+}
+//--------------------------------------------------
+:host(.style-select.hover) .input-box .icon-triangle {
+	border-color: $icon-color-hover transparent transparent transparent;
+}
+:host(.style-select.hover.low.small) .input-box .icon-triangle {
+	border-color: $icon-color-hover transparent transparent transparent;
+}
+
+//// PRESSED /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-select.pressed):not(.open) .input-box {
+	border: 1px solid $input-box-border-color-pressed;
+	background-color: $input-box-background-color-pressed;
+	box-shadow: none;
+}
+//--------------------------------------------------
+:host(.style-select.pressed):not(.open) .input-box input[type=text],
+:host(.style-select.pressed):not(.open) .input-box input[type=text]::placeholder {
+	color: $input-text-color-pressed;
+}
+:host(.style-select.pressed.low.small):not(.open) .input-box input[type=text],
+:host(.style-select.pressed.low.small):not(.open) .input-box input[type=text]::placeholder {
+	color: $input-text-color-pressed;
+}
+//--------------------------------------------------
+:host(.style-select.pressed):not(.open) .input-box .icon-triangle,
+:host(.style-select.pressed.low.small):not(.open) .input-box .icon-triangle {
+	border-color: $icon-color-pressed transparent transparent transparent;
+}
+
+//// FOCUS /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-select.focus) .input-box {
+	border: 1px solid $input-box-border-color-focus;
+	background-color: $input-box-background-color-focus;
+	box-shadow: $input-box-box-shadow-focus;
+}
+//--------------------------------------------------
+:host(.style-select.focus) .input-box input[type=text],
+:host(.style-select.focus) .input-box input[type=text]::placeholder {
+	color: $input-text-color-focus;
+}
+:host(.style-select.focus.low.small) .input-box input[type=text],
+:host(.style-select.focus.low.small) .input-box input[type=text]::placeholder {
+	color: $color-theme-800;
+}
+//--------------------------------------------------
+:host(.style-select.focus) .input-box .icon-triangle {
+	border-color: $icon-color-focus transparent transparent transparent;
+}
+:host(.style-select.focus.low.small) .input-box .icon-triangle {
+	border-color: $color-theme-800 transparent transparent transparent;
+}
+
+//// OPEN ///////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-select.open) .input-box {
+	border: 1px solid $input-box-border-color-open;
+	background-color: $input-box-background-color-open;
+	box-shadow: none;
+}
+//--------------------------------------------------
+:host(.style-select.open) .input-box input[type=text],
+:host(.style-select.open) .input-box input[type=text]::placeholder {
+	color: $input-text-color-open;
+}
+:host(.style-select.open.low.small) .input-box input[type=text],
+:host(.style-select.open.low.small) .input-box input[type=text]::placeholder {
+	color: $input-text-color-open;
+}
+//--------------------------------------------------
+:host(.style-select.open) .input-box .icon-triangle {
+	border-color: $icon-color-open transparent transparent transparent;
+}
+:host(.style-select.open.low.small) .input-box .icon-triangle {
+	border-color: $icon-color-open transparent transparent transparent;
+}
+
+//// DISABLED /////////////////////////////////////////
+//////////////////////////////////////////////////////
+:host(.style-select.disabled) .input-box {
+	border: 1px solid $input-box--border-color-disabled;
+	background-color: $input-box-background-color-disabled;
+}
+//--------------------------------------------------
+:host(.style-select.disabled) .input-box input[type=text],
+:host(.style-select.disabled) .input-box input[type=text]::placeholder {
+	color: $input-text-color-disabled;
+}
+:host(.style-select.disabled.low.small) .input-box input[type=text],
+:host(.style-select.disabled.low.small) .input-box input[type=text]::placeholder {
+	color: $input-text-color-disabled;
+}
+//--------------------------------------------------
+:host(.style-select.disabled) .input-box .icon-triangle {
+	border-color: $icon-color-disabled transparent transparent transparent;
+}
+:host(.style-select.disabled.low.small) .input-box .icon-triangle {
+	border-color: $icon-color-disabled transparent transparent transparent;
+}

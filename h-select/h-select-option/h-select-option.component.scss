@@ -1,0 +1,16 @@
+@import '../../../../../../assets/theme/light/variable';
+
+:host {
+	width: 100%;
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	&:hover {
+		background-color: $color-accent-200;
+	}
+}
+
+:host(.selected) {
+	background-color: $color-accent-200;
+}

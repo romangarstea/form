@@ -1,0 +1,129 @@
+@import '../../../../assets/theme/light/variable';
+@import '../../../../assets/theme/light/mixin';
+
+$toggle-height: 16px;
+$toggle-width: 28px;
+$indicator-diameter: 12px;
+$indicator-margin: ($toggle-height - $indicator-diameter) / 2;
+$indicator-waydistance: $toggle-width - $indicator-margin - $indicator-diameter;
+$indicator-marginleft: 8px;
+
+//// UNCHECKED
+$toggle-backgroundcolor: $color-theme-300;
+$indicator-backgroundcolor: $color-theme-500;
+
+//// CHECKED
+$indicator-backgroundcolor-checked: $color-accent-700;
+
+//// DISABLED
+$toggle-backgroundcolor-disabled: $color-theme-200;
+$indicator-backgroundcolor-disabled: $color-theme-300;
+$label-color: $color-theme-400;
+
+//// INVERTED
+$label-color-inverted: $color-theme-000;
+$toggle-backgroundcolor-inverted: $color-theme-400;
+$indicator-backgroundcolor-inverted: $color-theme-500;
+
+//// INVERTED DISABLED
+$toggle-backgroundcolor-disabled-inverted: $color-theme-600;
+$indicator-backgroundcolor-disabled-inverted: darken($color-theme-600, 5%);
+$label-color-disabled-inverted: $color-theme-600;
+
+.container {
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+
+	.toggleswitch {
+		position: relative;
+		width: $toggle-width;
+		height: $toggle-height;
+		background-color: $toggle-backgroundcolor;
+		border-radius: $toggle-height / 2;
+		outline: none;
+
+		.indicator {
+			position: absolute;
+			width: $indicator-diameter;
+			height: $indicator-diameter;
+			top: $indicator-margin;
+			left: $indicator-margin;
+			background-color: $indicator-backgroundcolor;
+			border-radius: $indicator-diameter / 2;
+			transition: 100ms left ease-in-out;
+		}
+	}
+
+	.label {
+		@include body1;
+		@include unselectable;
+		color: $color-theme-700;
+		margin-left: $indicator-marginleft;
+	}
+}
+
+//// CHECKED
+:host(.checked) .toggleswitch .indicator {
+	left: $indicator-waydistance;
+	background-color: $indicator-backgroundcolor-checked;
+}
+
+//// FOCUS
+.toggleswitch:focus {
+	box-shadow: 0px 0px 2px rgba(0, 0, 0, 0.6);
+}
+
+:host(.h-inverted) .toggleswitch:focus {
+	box-shadow: 0px 0px 2px rgba(250, 250, 250, 1);
+}
+
+//// DISABLED
+:host(.disabled) .toggleswitch {
+	background-color: $toggle-backgroundcolor-disabled;
+}
+
+:host(.disabled) .toggleswitch .indicator {
+	background-color: $indicator-backgroundcolor-disabled;
+}
+
+:host(.disabled) .label {
+	color: $label-color;
+}
+
+:host(.disabled) .toggleswitch {
+	cursor: default;
+	pointer-events: none;
+}
+
+//// INVERTED
+:host(.h-inverted) {
+	& .toggleswitch {
+		background-color: $toggle-backgroundcolor-inverted;
+		& .indicator {
+			background-color: $indicator-backgroundcolor-inverted;
+		}
+	}
+	& .label {
+		color: $label-color-inverted;
+	}
+}
+
+:host(.h-inverted.checked) .toggleswitch .indicator {
+	background-color: $indicator-backgroundcolor-checked;
+}
+
+
+//// INVERTED DISABLED
+:host(.disabled.h-inverted) {
+	& .toggleswitch {
+		background-color: $toggle-backgroundcolor-disabled-inverted;
+		& .indicator {
+			background-color: $indicator-backgroundcolor-disabled-inverted;
+		}
+	}
+	& .label {
+		color: $label-color-disabled-inverted;
+	}
+}
+
